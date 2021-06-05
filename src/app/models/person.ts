@@ -1,5 +1,5 @@
 export interface Person {
-  id: number,
+  id?: number,
   name: string,
   favorite: boolean,
   phones: string[],

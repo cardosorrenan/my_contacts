@@ -1,0 +1,51 @@
+<div class="contact-list ml-3 mb-3">
+  <div class="d-flex align-items-center">
+    <i class="bi-person mr-3"></i>
+    <h5 class="mr-auto ml-1">
+      {{ person.name }}
+      <div *ngIf="person.favorite;then content else other_content">er</div>    
+      <ng-template #content>
+        <i title="Favorite" class="bi-star ml-2"></i>
+      </ng-template>
+      <ng-template #other_content>
+        <i title="Favorite" class="bi-star-fill ml-2"></i>
+      </ng-template>
+    </h5>
+    <button 
+      type="button" 
+      title="List phone numbers"
+      class="btn btn-outline-primary border-0" 
+      (click)="collapse.toggle()"
+      [attr.aria-expanded]="!isCollapsed"
+      aria-controls="collapseExample"
+      *ngIf="person.phones.length !== 0;"
+    >
+      <i class="bi-list"></i>
+    </button>
+    <button 
+      type="button" 
+      class="btn btn-outline-success border-0"
+      title="Create phone number"
+    >
+      <i class="bi-telephone-plus"></i>
+    </button>
+    <button 
+      type="button" 
+      class="btn btn-outline-primary border-0"
+      title="Edit contact"
+    >
+      <i class="bi-pencil-square"></i>
+    </button>
+    <button 
+      type="button" 
+      class="btn btn-outline-danger border-0"
+      title="Delete contact"
+    >
+      <i class="bi-trash"></i>
+    </button>
+  </div>
+  <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+    <app-phone *ngFor="let phone of person.phones" [phone]="phone"></app-phone>
+  </div>
+  <hr />
+</div>

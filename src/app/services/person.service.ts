@@ -21,7 +21,7 @@ export class PersonService {
     })
   };
 
-  getCars(): Observable<Person[]> {
+  getPersons(): Observable<Person[]> {
     return this.httpClient.get<Person[]>(this.url, this.httpOptions)
       .pipe(
         retry(2),
@@ -29,50 +29,12 @@ export class PersonService {
       )
   }
   
-  /* getCarById(id: number): Observable<Person> {
-    return this.httpClient.get<Person>(this.url + '/' + id)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
-
-  // salva um carro
-  saveCar(car: Person): Observable<Person> {
-    return this.httpClient.post<Person>(this.url, JSON.stringify(car), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
-
-  // utualiza um carro
-  updateCar(car: Person): Observable<Person> {
-    return this.httpClient.put<Person>(this.url + '/' + car.id, JSON.stringify(car), this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      )
-  }
-
-  // deleta um carro
-  deleteCar(car: Person) {
-    return this.httpClient.delete<Person>(this.url + '/' + car.id, this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      )
-  }
-  */
-  // Manipulação de erros
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
-      // Erro ocorreu no lado do client
       errorMessage = error.error.message;
     } else {
-      // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+      errorMessage = `Error code: ${error.status}, ` + `message: ${error.message}`;
     }
     console.log(errorMessage);
     return throwError(errorMessage);

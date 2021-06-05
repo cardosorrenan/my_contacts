@@ -9,19 +9,16 @@ import { PersonService } from './services/person.service';
 })
 export class AppComponent implements OnInit {
   
-  public items = ['a', 'b', 'c'];
-  public tarefa = ''
-  
   persons: Person[] = [];
 
   constructor(private personService: PersonService) {}
   
   ngOnInit() {
-    this.getCars();
+    this.getPersons();
   }
 
-  getCars() {
-    this.personService.getCars().subscribe((persons: Person[]) => {
+  getPersons() {
+    this.personService.getPersons().subscribe((persons: Person[]) => {
       this.persons = persons;
     });
   }

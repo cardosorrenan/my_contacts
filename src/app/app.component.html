@@ -1,5 +1,14 @@
-<div>
-  <h1>My Contacts</h1>
-  <input type="text"> 
-  <button click>Adicionar</button>
+<div class="body">
+  <app-header></app-header>
+  <div>
+    <button 
+      type="button" 
+      class="btn btn-outline-success ml-3 mb-3"
+      title="Delete person"
+    >
+      New Contact
+      <i class="bi-plus ml-2"></i>
+    </button>
+  </div>
+  <app-person *ngFor="let person of persons" [person]="person"></app-person>
 </div>
