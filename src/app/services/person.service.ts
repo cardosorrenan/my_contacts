@@ -28,6 +28,30 @@ export class PersonService {
         catchError(this.handleError)
       )
   }
+
+  savePerson(person: Person): Observable<Person> {
+    return this.httpClient.post<Person>(this.url, JSON.stringify(person), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+  updatePerson(person: Person): Observable<Person> {
+    return this.httpClient.put<Person>(this.url + '/' + person.id, JSON.stringify(person), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
+
+  deletePerson(person: Person) {
+    return this.httpClient.delete<Person>(this.url + '/' + person.id, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
   
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';

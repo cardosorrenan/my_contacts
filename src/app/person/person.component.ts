@@ -16,9 +16,7 @@ export class PersonComponent implements OnInit {
     this.person = {
       name: '',
       favorite: false,
-      phones: [],
-      created_at: new Date(),
-      updated_at: new Date(),
+      phones: []
     }    
   }
 

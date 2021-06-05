@@ -1,14 +1,48 @@
 <div class="body">
   <app-header></app-header>
-  <div>
+  <div class="ml-3 mb-3">
     <button 
       type="button" 
-      class="btn btn-outline-success ml-3 mb-3"
+      class="btn btn-outline-success"
       title="Delete person"
+      (click)="toogleForm()"
+      *ngIf="!showFormContact"
     >
       New Contact
       <i class="bi-plus ml-2"></i>
     </button>
+    <div *ngIf="showFormContact">
+      <form [formGroup]="createContact" (ngSubmit)="onSubmit()">
+        <div style="width: 350px" class="input-group d-flex mb-3">
+          <input 
+            id="name" 
+            type="text" 
+            class="form-control" 
+            placeholder="Name" 
+            aria-label="Username" 
+            aria-describedby="basic-addon1"
+            formControlName="name"
+            maxlength="30"
+          >
+        <button 
+          type="button" 
+          (click)="toogleForm()"
+          class="btn btn-outline-danger border-0"
+          title="Edit phone number"
+        >
+          <i class="bi-x-lg"></i>
+        </button>
+        <button 
+          type="button" 
+          type="submit"
+          class="btn btn-outline-success border-0"
+          title="Edit phone number"
+        >
+          <i class="bi-save"></i>
+        </button>
+          </div>
+      </form>
+    </div>
   </div>
   <app-person *ngFor="let person of persons" [person]="person"></app-person>
 </div>

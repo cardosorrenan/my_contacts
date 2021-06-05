@@ -5,10 +5,10 @@
       {{ person.name }}
       <div *ngIf="person.favorite;then content else other_content">er</div>    
       <ng-template #content>
-        <i title="Favorite" class="bi-star ml-2"></i>
+        <i title="Favorite" style="color: #FBB829" class="bi-star-fill ml-2"></i>
       </ng-template>
       <ng-template #other_content>
-        <i title="Favorite" class="bi-star-fill ml-2"></i>
+        <i title="Favorite" class="bi-star ml-2"></i>
       </ng-template>
     </h5>
     <button 
