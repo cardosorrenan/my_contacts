@@ -84,5 +84,24 @@ export class PersonComponent implements OnInit {
       this.deletePerson();
     }
   }
+
+  updateFavorite(isFavorite: boolean) {
+    const payload = {
+      id: this.person.id,
+      name: this.person.name,
+      favorite: isFavorite
+    }
+
+    this.personService.updatePerson(payload)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        });
+        
+    this.getPersons.emit();
+  }
   
 }

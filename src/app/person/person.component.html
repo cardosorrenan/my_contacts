@@ -7,10 +7,22 @@
         <h5>{{ person.name }}</h5>
         <div *ngIf="person.favorite;then favorite else not_favorite"></div>    
         <ng-template #favorite>
-          <i title="Favorite" style="color: #FBB829" class="bi-star-fill ml-2"></i>
+          <i 
+            title="Favorite" 
+            style="color: #FBB829; cursor: pointer" 
+            class="bi-star-fill ml-2"
+            (click)="updateFavorite(false)"
+          >  
+          </i>
         </ng-template>
         <ng-template #not_favorite>
-          <i title="Favorite" class="bi-star ml-2"></i>
+          <i 
+            title="Favorite" 
+            style="cursor: pointer"
+            class="bi-star ml-2"
+            (click)="updateFavorite(true)"
+          >  
+          </i>
         </ng-template>
       </ng-template>
       <ng-template #edit_contact>
