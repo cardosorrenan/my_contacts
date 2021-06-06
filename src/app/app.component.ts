@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   
   persons: Person[] = [];
   name: String = '';
-  showFormContact: Boolean = false;
+  showFormCreateContact: Boolean = false;
 
   createContact = this.formBuilder.group({
     name: '',
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   toogleForm() {
-    this.showFormContact = !this.showFormContact
+    this.showFormCreateContact = !this.showFormCreateContact
   }
   
   ngOnInit() {
@@ -52,12 +52,15 @@ export class AppComponent implements OnInit {
 
     this.personService.savePerson(payload)
       .subscribe(
+        response => {
+          console.log(response);
+        },
         error => {
           console.log(error);
         });
 
     this.createContact.reset();
+    this.showFormCreateContact = false;
     this.getPersons();
-    this.showFormContact = !this.showFormContact;
   }
 }

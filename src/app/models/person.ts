@@ -2,7 +2,7 @@ export interface Person {
   id?: number,
   name: string,
   favorite: boolean,
-  phones: string[],
+  phones?: string[],
   created_at?: Date,
   updated_at?: Date,
 }

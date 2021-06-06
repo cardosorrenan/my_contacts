@@ -6,12 +6,12 @@
       class="btn btn-outline-success"
       title="Delete person"
       (click)="toogleForm()"
-      *ngIf="!showFormContact"
+      *ngIf="!showFormCreateContact"
     >
       New Contact
       <i class="bi-plus ml-2"></i>
     </button>
-    <div *ngIf="showFormContact">
+    <div *ngIf="showFormCreateContact">
       <form [formGroup]="createContact" (ngSubmit)="onSubmit()">
         <div style="width: 350px" class="input-group d-flex mb-3">
           <input 
@@ -28,15 +28,14 @@
           type="button" 
           (click)="toogleForm()"
           class="btn btn-outline-danger border-0"
-          title="Edit phone number"
+          title="Cancel"
         >
           <i class="bi-x-lg"></i>
         </button>
         <button 
-          type="button" 
           type="submit"
           class="btn btn-outline-success border-0"
-          title="Edit phone number"
+          title="Create contact"
         >
           <i class="bi-save"></i>
         </button>
@@ -44,5 +43,5 @@
       </form>
     </div>
   </div>
-  <app-person *ngFor="let person of persons" [person]="person"></app-person>
+  <app-person (getPersons)="getPersons()" *ngFor="let person of persons" [person]="person"></app-person>
 </div>

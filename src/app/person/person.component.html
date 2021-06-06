@@ -1,16 +1,49 @@
 <div class="contact-list ml-3 mb-3">
   <div class="d-flex align-items-center">
-    <i class="bi-person mr-3"></i>
-    <h5 class="mr-auto ml-1">
-      {{ person.name }}
-      <div *ngIf="person.favorite;then content else other_content">er</div>    
-      <ng-template #content>
-        <i title="Favorite" style="color: #FBB829" class="bi-star-fill ml-2"></i>
+    <div class="d-flex mr-auto">
+      <div *ngIf="showFormEditContact == false;then info_contact else edit_contact"></div>    
+      <ng-template #info_contact>
+        <i class="bi-person mr-3 mt-1"></i>
+        <h5>{{ person.name }}</h5>
+        <div *ngIf="person.favorite;then favorite else not_favorite"></div>    
+        <ng-template #favorite>
+          <i title="Favorite" style="color: #FBB829" class="bi-star-fill ml-2"></i>
+        </ng-template>
+        <ng-template #not_favorite>
+          <i title="Favorite" class="bi-star ml-2"></i>
+        </ng-template>
       </ng-template>
-      <ng-template #other_content>
-        <i title="Favorite" class="bi-star ml-2"></i>
+      <ng-template #edit_contact>
+        <form [formGroup]="editContact" (ngSubmit)="onSubmit()">
+          <div style="width: 350px" class="input-group d-flex mb-3">
+            <input 
+              id="name"
+              type="text" 
+              class="form-control" 
+              aria-label="Username" 
+              aria-describedby="basic-addon1"
+              formControlName="name"
+              maxlength="30"
+            >
+          <button 
+            type="button" 
+            (click)="toogleForm()"
+            class="btn btn-outline-danger border-0"
+            title="Cancel"
+          >
+            <i class="bi-x-lg"></i>
+          </button>
+          <button 
+            type="submit"
+            class="btn btn-outline-success border-0"
+            title="Edit name"
+          >
+            <i class="bi-save"></i>
+          </button>
+            </div>
+        </form>
       </ng-template>
-    </h5>
+    </div>
     <button 
       type="button" 
       title="List phone numbers"
@@ -18,7 +51,7 @@
       (click)="collapse.toggle()"
       [attr.aria-expanded]="!isCollapsed"
       aria-controls="collapseExample"
-      *ngIf="person.phones.length !== 0;"
+      *ngIf="person.phones && person.phones.length !== 0;"
     >
       <i class="bi-list"></i>
     </button>
@@ -31,6 +64,7 @@
     </button>
     <button 
       type="button" 
+      (click)="toogleForm()" 
       class="btn btn-outline-primary border-0"
       title="Edit contact"
     >
@@ -39,6 +73,7 @@
     <button 
       type="button" 
       class="btn btn-outline-danger border-0"
+      (click)="confirmationDelete()"
       title="Delete contact"
     >
       <i class="bi-trash"></i>
