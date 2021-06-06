@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'Geomanist-Regular';
+  src: url(../../assets/Geomanist-Regular.otf);
+}
+
+.navbar {
+  background-color: #008442 !important;
+}
+
+.navbar-brand {
+  font-family: 'Geomanist-Regular';
+  color: white;
+  font-weight: 500;
+  font-size: 18pt;
+  padding-right: 15px;
+  border-right: 2px solid white;
+}
+
+.nav-link {
+  font-family: 'Geomanist-Regular';
+  color: white !important;
+  font-size: 10pt;
+}
