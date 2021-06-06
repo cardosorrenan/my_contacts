@@ -48,7 +48,6 @@ export class PersonService {
   updatePerson(person: Person): Observable<Person> {
     const id = person.id
     delete person['id']
-    console.log(person)
     return this.httpClient.patch<Person>(this.url + '/' + id + '/', JSON.stringify(person), this.httpOptions)
       .pipe(
         retry(1),

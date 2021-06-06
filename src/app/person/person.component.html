@@ -37,62 +37,64 @@
               formControlName="name"
               maxlength="30"
             >
-          <button 
-            type="button" 
-            (click)="toogleForm()"
-            class="btn btn-outline-danger border-0"
-            title="Cancel"
-          >
-            <i class="bi-x-lg"></i>
-          </button>
-          <button 
-            type="submit"
-            class="btn btn-outline-success border-0"
-            title="Edit name"
-          >
-            <i class="bi-save"></i>
-          </button>
-            </div>
+            <button 
+              type="button" 
+              (click)="toogleForm()"
+              class="btn btn-outline-danger border-0"
+              title="Cancel"
+            >
+              <i class="bi-x-lg"></i>
+            </button>
+            <button 
+              type="submit"
+              class="btn btn-outline-success border-0"
+              title="Edit name"
+            >
+              <i class="bi-save"></i>
+            </button>
+          </div>
         </form>
       </ng-template>
     </div>
-    <button 
-      type="button" 
-      title="List phone numbers"
-      class="btn btn-outline-primary border-0" 
-      (click)="collapse.toggle()"
-      [attr.aria-expanded]="!isCollapsed"
-      aria-controls="collapseExample"
-      *ngIf="person.phones && person.phones.length !== 0;"
-    >
-      <i class="bi-list"></i>
-    </button>
-    <button 
-      type="button" 
-      class="btn btn-outline-success border-0"
-      title="Create phone number"
-    >
-      <i class="bi-telephone-plus"></i>
-    </button>
-    <button 
-      type="button" 
-      (click)="toogleForm()" 
-      class="btn btn-outline-primary border-0"
-      title="Edit contact"
-    >
-      <i class="bi-pencil-square"></i>
-    </button>
-    <button 
-      type="button" 
-      class="btn btn-outline-danger border-0"
-      (click)="confirmationDelete()"
-      title="Delete contact"
-    >
-      <i class="bi-trash"></i>
-    </button>
+    <div *ngIf="!showFormEditContact">
+      <button 
+        type="button" 
+        title="List phone numbers"
+        class="btn btn-outline-primary border-0" 
+        (click)="collapse.toggle()"
+        [attr.aria-expanded]="!isCollapsed"
+        aria-controls="collapseExample"
+        *ngIf="person.phones && person.phones.length !== 0;"
+      >
+        <i class="bi-list"></i>
+      </button>
+      <button 
+        type="button" 
+        class="btn btn-outline-success border-0"
+        title="Create phone number"
+      >
+        <i class="bi-telephone-plus"></i>
+      </button>
+      <button 
+        type="button" 
+        (click)="toogleForm()" 
+        class="btn btn-outline-primary border-0"
+        title="Edit contact"
+      >
+        <i class="bi-pencil-square"></i>
+      </button>
+      <button 
+        type="button" 
+        class="btn btn-outline-danger border-0"
+        (click)="confirmationDelete()"
+        title="Delete contact"
+      >
+        <i class="bi-trash"></i>
+      </button>
+    </div>
   </div>
   <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-    <app-phone *ngFor="let phone of person.phones" [phone]="phone"></app-phone>
+    <app-phone (updateContactList)="updateContactList()" *ngFor="let phone of person.phones" [personId]="person.id || 0" [phone]="phone"></app-phone>
   </div>
   <hr />
 </div>

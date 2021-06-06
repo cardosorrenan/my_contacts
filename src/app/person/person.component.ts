@@ -13,7 +13,6 @@ export class PersonComponent implements OnInit {
 
   public isCollapsed = true;
   showFormEditContact: Boolean = false;
-
   editContact = this.formBuilder.group({
     name: '',
   });
@@ -40,6 +39,10 @@ export class PersonComponent implements OnInit {
   ngOnInit() {
   }
 
+  updateContactList() {
+    this.getPersons.emit();
+  }
+
   onSubmit(): void {
     const { name } = this.editContact.value;
     
@@ -64,7 +67,7 @@ export class PersonComponent implements OnInit {
 
     this.editContact.reset();
     this.showFormEditContact = false;
-    this.getPersons.emit();
+    this.updateContactList();
   }
 
   deletePerson() {
@@ -76,7 +79,7 @@ export class PersonComponent implements OnInit {
       error => {
         console.log(error);
       });
-    this.getPersons.emit();
+    this.updateContactList();
   }
 
   confirmationDelete() {
@@ -101,7 +104,7 @@ export class PersonComponent implements OnInit {
           console.log(error);
         });
         
-    this.getPersons.emit();
+    this.updateContactList();
   }
   
 }

@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
   }
 
   getPersons() {
+    console.log('oi')
     setTimeout(() => this.personService.getPersons().subscribe((persons: Person[]) => {
       this.persons = persons;
     }), 200);
