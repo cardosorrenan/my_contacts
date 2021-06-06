@@ -1,0 +1,141 @@
+<div class="contact-list ml-3 mb-3">
+  <div class="d-flex align-items-center">
+    <div class="d-flex mr-auto">
+      <div *ngIf="showFormEditContact == false;then info_contact else edit_contact"></div>    
+      <ng-template #info_contact>
+        <i class="bi-person mr-3 mt-1"></i>
+        <h5>{{ person.name }}</h5>
+        <div *ngIf="person.favorite;then favorite else not_favorite"></div>    
+        <ng-template #favorite>
+          <i 
+            title="Favorite" 
+            style="color: #FBB829; cursor: pointer" 
+            class="bi-star-fill ml-2"
+            (click)="updateFavorite(false)"
+          >  
+          </i>
+        </ng-template>
+        <ng-template #not_favorite>
+          <i 
+            title="Favorite" 
+            style="cursor: pointer"
+            class="bi-star ml-2"
+            (click)="updateFavorite(true)"
+          >  
+          </i>
+        </ng-template>
+      </ng-template>
+      <ng-template #edit_contact>
+        <form [formGroup]="editContact" (ngSubmit)="onEditContactSubmit()">
+          <div style="width: 350px" class="input-group d-flex mb-3">
+            <input 
+              id="name"
+              type="text" 
+              class="form-control" 
+              aria-label="Username" 
+              aria-describedby="basic-addon1"
+              formControlName="name"
+              maxlength="30"
+            >
+            <button 
+              type="button" 
+              (click)="toogleForm()"
+              class="btn btn-outline-danger border-0"
+              title="Cancel"
+            >
+              <i class="bi-x-lg"></i>
+            </button>
+            <button 
+              type="submit"
+              class="btn btn-outline-success border-0"
+              title="Edit name"
+            >
+              <i class="bi-save"></i>
+            </button>
+          </div>
+        </form>
+      </ng-template>
+    </div>
+    <div *ngIf="!showFormEditContact">
+      <button 
+        type="button" 
+        title="List phone numbers"
+        class="btn btn-outline-primary border-0" 
+        (click)="collapse.toggle()"
+        [attr.aria-expanded]="!isCollapsed"
+        aria-controls="collapseExample"
+        *ngIf="person.phones && person.phones.length !== 0;"
+      >
+        <i class="bi-list"></i>
+      </button>
+      <button 
+        type="button" 
+        class="btn btn-outline-success border-0"
+        (click)="toogleCreatePhone()"
+        title="Create phone number"
+      >
+        <i class="bi-telephone-plus"></i>
+      </button>
+      <button 
+        type="button" 
+        (click)="toogleForm()" 
+        class="btn btn-outline-primary border-0"
+        title="Edit contact"
+      >
+        <i class="bi-pencil-square"></i>
+      </button>
+      <button 
+        type="button" 
+        class="btn btn-outline-danger border-0"
+        (click)="confirmationDelete()"
+        title="Delete contact"
+      >
+        <i class="bi-trash"></i>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="showFormCreatePhone" class="d-flex flex-column">
+    <form [formGroup]="createPhone" (ngSubmit)="onCreatePhoneSubmit()">
+      <div class="input-group d-flex mb-3 align-items-start">
+        <div class="d-flex flex-column">
+          <div style="width: 220px" class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">+</span>
+            </div>
+            <input 
+              id="phone"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              class="form-control" 
+              aria-label="Phone Number" 
+              aria-describedby="basic-addon1"
+              formControlName="phone"
+              type="number"
+              placeholder="Add a new phone"
+              maxlength="13"
+            >
+          </div>
+          <p class="tip">Ex.: 55 98 9 98765432 (13 digits)</p>
+        </div>
+        <button 
+          type="button" 
+          (click)="toogleCreatePhone()"
+          class="btn btn-outline-danger border-0"
+          title="Cancel"
+        >
+          <i class="bi-x-lg"></i>
+        </button>
+        <button 
+          type="submit"
+          class="btn btn-outline-success border-0"
+          title="Edit phone number"
+        >
+          <i class="bi-save"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+    <app-phone (updateContactList)="updateContactList()" *ngFor="let phone of person.phones" [personId]="person.id || 0" [phone]="phone"></app-phone>
+  </div>
+  <hr />
+</div>
