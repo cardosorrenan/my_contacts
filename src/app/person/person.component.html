@@ -26,7 +26,7 @@
         </ng-template>
       </ng-template>
       <ng-template #edit_contact>
-        <form [formGroup]="editContact" (ngSubmit)="onSubmit()">
+        <form [formGroup]="editContact" (ngSubmit)="onEditContactSubmit()">
           <div style="width: 350px" class="input-group d-flex mb-3">
             <input 
               id="name"
@@ -71,6 +71,7 @@
       <button 
         type="button" 
         class="btn btn-outline-success border-0"
+        (click)="toogleCreatePhone()"
         title="Create phone number"
       >
         <i class="bi-telephone-plus"></i>
@@ -92,6 +93,46 @@
         <i class="bi-trash"></i>
       </button>
     </div>
+  </div>
+  <div *ngIf="showFormCreatePhone" class="d-flex flex-column">
+    <form [formGroup]="createPhone" (ngSubmit)="onCreatePhoneSubmit()">
+      <div class="input-group d-flex mb-3 align-items-start">
+        <div class="d-flex flex-column">
+          <div style="width: 220px" class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">+</span>
+            </div>
+            <input 
+              id="phone"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              class="form-control" 
+              aria-label="Phone Number" 
+              aria-describedby="basic-addon1"
+              formControlName="phone"
+              type="number"
+              placeholder="Add a new phone"
+              maxlength="13"
+            >
+          </div>
+          <p class="tip">Ex.: 55 98 9 98765432 (13 digits)</p>
+        </div>
+        <button 
+          type="button" 
+          (click)="toogleCreatePhone()"
+          class="btn btn-outline-danger border-0"
+          title="Cancel"
+        >
+          <i class="bi-x-lg"></i>
+        </button>
+        <button 
+          type="submit"
+          class="btn btn-outline-success border-0"
+          title="Edit phone number"
+        >
+          <i class="bi-save"></i>
+        </button>
+      </div>
+    </form>
   </div>
   <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
     <app-phone (updateContactList)="updateContactList()" *ngFor="let phone of person.phones" [personId]="person.id || 0" [phone]="phone"></app-phone>

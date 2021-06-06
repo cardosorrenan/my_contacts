@@ -21,6 +21,14 @@ export class PhoneService {
     })
   };
 
+  savePhone(phone: Phone): Observable<Phone> {
+    return this.httpClient.post<Phone>(this.url + '/', JSON.stringify(phone), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
   updatePhone(phone: Phone): Observable<Phone> {
     const id = phone.id
     delete phone['id']
