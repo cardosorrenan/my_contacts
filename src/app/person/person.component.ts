@@ -74,7 +74,7 @@ export class PersonComponent implements OnInit {
     this.personService.deletePerson(this.person)
     .subscribe(
       response => {
-        console.log(response);
+        console.log('OK');
       },
       error => {
         console.log(error);

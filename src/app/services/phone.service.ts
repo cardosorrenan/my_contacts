@@ -24,8 +24,15 @@ export class PhoneService {
   updatePhone(phone: Phone): Observable<Phone> {
     const id = phone.id
     delete phone['id']
-    console.log(phone)
     return this.httpClient.patch<Phone>(this.url + '/' + id + '/', JSON.stringify(phone), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
+
+  deletePhone(id: number) {
+    return this.httpClient.delete<Phone>(this.url + '/' + id + '/', this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)

@@ -62,4 +62,24 @@ export class PhoneComponent implements OnInit {
 
     this.updateContactList.emit();
   }
+
+  deletePhone() {
+    const id = parseInt(this.phone.split(': ')[0])
+    this.phoneService.deletePhone(id)
+      .subscribe(
+        response => {
+          console.log('OK');
+        },
+        error => {
+          console.log(error);
+        });
+        
+    this.updateContactList.emit();
+  }
+
+  confirmationDelete() {
+    if(confirm("Are you sure to delete " + this.phone.split(': ')[1] + "?")) {
+      this.deletePhone();
+    }
+  }
 }
